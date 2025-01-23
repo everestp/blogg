@@ -1,6 +1,6 @@
 package com.offnine.blogg.Payload;
 
-import jakarta.persistence.*;
+
 import lombok.*;
 
 
