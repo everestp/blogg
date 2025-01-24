@@ -1,6 +1,10 @@
 package com.offnine.blogg.entities;
 
+
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Entity
@@ -18,12 +22,17 @@ public class User {
     @Column
     private  int id;
     @Column
+    @Size(min=4,message = "Name must of 4 character")
     private  String name;
 
+    
     @Column
+    @Email
+    @Email(message = "Email address is not Valid")
     private  String email;
 
     @Column
+    @Size(min=3,max=10,message = "Password must be minimum 3 character")
     private  String password;
 
     @Column
