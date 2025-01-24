@@ -36,7 +36,7 @@ private UserService userService;
 
 @PostMapping("/")
 
-public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto ){
+public ResponseEntity<UserDto> createUser( @RequestBody UserDto userDto ){
     UserDto createUserDto = this.userService.createUser(userDto);
     return new ResponseEntity<>(createUserDto,HttpStatus.CREATED);
 
@@ -67,4 +67,10 @@ public ResponseEntity<ApiResponse> deleteUser(@PathVariable Integer userId){
    this.userService.deleteUser(userId);
    return new ResponseEntity<ApiResponse>(new ApiResponse("User Deleted Sucessfully",true),HttpStatus.OK);
 }
+
+
+
+//GET
+
+
 }

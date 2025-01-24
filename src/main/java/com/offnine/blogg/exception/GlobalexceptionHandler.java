@@ -1,11 +1,14 @@
 package com.offnine.blogg.exception;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.MethodArgumentBuilder;
 
 import com.offnine.blogg.Payload.ApiResponse;
 
@@ -21,10 +24,15 @@ public class GlobalexceptionHandler {
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        String message = "Validation error: " + ex.getBindingResult().getFieldError().getDefaultMessage();
-        ApiResponse apiResponse = new ApiResponse(message, false);
-        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Map<String,String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+       Map<String,String> resp = new HashMap<>();
+       ex.getBindingResult().getAllErrors().forEach((error)->{
+
+        String fieddName = ((FieldError)error).getField();
+        String message = error.getDefaultMessage();
+        resp.put(fieddName, message);
+       });
+        return new ResponseEntity<Map<String,String>>(resp, HttpStatus.BAD_REQUEST);
     }
 
     
