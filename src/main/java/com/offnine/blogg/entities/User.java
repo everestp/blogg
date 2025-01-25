@@ -2,6 +2,9 @@ package com.offnine.blogg.entities;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
@@ -40,7 +43,8 @@ public class User {
 
     @Column
     private  String gender;
-
+@OneToMany(mappedBy ="user",cascade =CascadeType.ALL ,fetch = FetchType.LAZY )
+    private List<Post> posts = new ArrayList<>();
 
 
 }
