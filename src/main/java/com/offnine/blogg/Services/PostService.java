@@ -3,7 +3,8 @@ package com.offnine.blogg.Services;
 import java.util.List;
 
 import com.offnine.blogg.Payload.PostDto;
-import com.offnine.blogg.entities.Post;
+import com.offnine.blogg.Payload.PostResponse;
+
 
 public interface PostService {
     // video 19 ==> Creating post service Entity
@@ -19,7 +20,7 @@ PostDto upadatePost(PostDto postDto ,Integer postId);
     void deletePost(Integer postId);
 
     //get all post
-    List<PostDto> getAllPosts();
+    PostResponse getAllPosts(Integer pageNumber,Integer pageSize);
 
     // get single post
     PostDto getPostById(Integer postId);
