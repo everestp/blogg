@@ -20,7 +20,7 @@ PostDto upadatePost(PostDto postDto ,Integer postId);
     void deletePost(Integer postId);
 
     //get all post
-    PostResponse getAllPosts(Integer pageNumber,Integer pageSize);
+    PostResponse getAllPosts(Integer pageNumber,Integer pageSize,String sortBy,String sortDir);
 
     // get single post
     PostDto getPostById(Integer postId);

@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -81,8 +82,16 @@ return this.modelMapper.map(updatedPost,PostDto.class);
     }
 // impementation of pagination
     @Override
-    public PostResponse getAllPosts(Integer pageNumber,Integer pageSize) {
-    PageRequest p =  PageRequest.of(pageNumber, pageSize);
+    public PostResponse getAllPosts(Integer pageNumber,Integer pageSize,String sortBy,String sortDir) {
+        Sort sort =null;
+        if(sortDir.equalsIgnoreCase("asc")){
+           sort = Sort.by(sortBy).ascending();
+        }
+        else{
+            sort = Sort.by(sortBy).descending();
+        }
+        PageRequest p =  PageRequest.of(pageNumber, pageSize,sort);
+
          Page<Post> pagePost = this.postRepo.findAll(p);
          List<Post> allPosts = pagePost.getContent();
       List<PostDto> postDtos =allPosts.stream().map((cat) -> this.modelMapper.map(cat, PostDto.class)).collect(Collectors.toList());

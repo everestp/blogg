@@ -79,9 +79,11 @@ public ApiResponse deletePost(@PathVariable Integer postId){
 @GetMapping("/posts")
 public ResponseEntity <PostResponse> getAllPost(
    @RequestParam(value = "pageNumber",defaultValue = "1",required = false) Integer pageNumber,
-   @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize
+   @RequestParam(value = "pageSize",defaultValue = "5",required = false) Integer pageSize,
+   @RequestParam(value = "sortBy",defaultValue = "postId",required = false) String  sortBy,
+   @RequestParam(value = "sortDir",defaultValue = "asc",required = false) String  sortDir
 
 ){
-   PostResponse postResponse =this.postService.getAllPosts(pageNumber,pageSize);
+   PostResponse postResponse =this.postService.getAllPosts(pageNumber,pageSize,sortBy,sortDir);
    return new ResponseEntity<PostResponse>(postResponse,HttpStatus.OK);}
  }
