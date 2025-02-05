@@ -6,5 +6,6 @@ import com.offnine.blogg.entities.Categories;
 
 public interface CategoryRepo extends JpaRepository<Categories, Integer> {
 
+
     
 }

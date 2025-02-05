@@ -14,7 +14,7 @@ import com.offnine.blogg.Payload.UserDto;
 import com.offnine.blogg.Payload.ApiResponse;
 import com.offnine.blogg.Services.UserService;
 
-import jakarta.validation.Valid;
+
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,7 +43,7 @@ public ResponseEntity<UserDto> createUser( @RequestBody UserDto userDto ){
 }
 
 @PutMapping("/{userId}")
-public ResponseEntity<UserDto> updateUser( @Valid @RequestBody UserDto userDto, @PathVariable Integer userId){
+public ResponseEntity<UserDto> updateUser(  @RequestBody UserDto userDto, @PathVariable Integer userId){
     UserDto updateUser = this.userService.updateUser(userDto, userId);
     return ResponseEntity.ok(updateUser);
 }
@@ -65,7 +65,8 @@ public ResponseEntity<List<UserDto>> getAllUsers(){
 @DeleteMapping("/{userId}")
 public ResponseEntity<ApiResponse> deleteUser(@PathVariable Integer userId){
    this.userService.deleteUser(userId);
-   return new ResponseEntity<ApiResponse>(new ApiResponse("User Deleted Sucessfully",true),HttpStatus.OK);
+
+  return new ResponseEntity<ApiResponse>(new ApiResponse("User Deleted ",true),HttpStatus.OK);
 }
 
 

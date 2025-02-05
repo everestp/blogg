@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.offnine.blogg.Payload.CategoryDto;
 import com.offnine.blogg.Services.CategoryService;
 
-import jakarta.validation.Valid;
+
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,14 +31,14 @@ public class CategoryController {
     @Autowired
 private CategoryService categoryService;    
     @PostMapping("/")
-    public ResponseEntity<CategoryDto> createCatagory(@Valid  @RequestBody CategoryDto categoryDto) {
+    public ResponseEntity<CategoryDto> createCatagory( @RequestBody CategoryDto categoryDto) {
       CategoryDto createCategory= this.categoryService.createCategory(categoryDto);
       return new ResponseEntity<>(createCategory,HttpStatus.CREATED);
     }
     
 //update
 @PutMapping("/{catId}")
-public ResponseEntity<CategoryDto> updateCatogory( @Valid @RequestBody CategoryDto categoryDto , @PathVariable Integer catId) {
+public ResponseEntity<CategoryDto> updateCatogory(  @RequestBody CategoryDto categoryDto , @PathVariable Integer catId) {
     CategoryDto updatedCategory = this.categoryService.updateCategory(categoryDto, catId);
     
     return new  ResponseEntity<CategoryDto>(updatedCategory,HttpStatus.OK);
