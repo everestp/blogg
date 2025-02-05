@@ -85,5 +85,15 @@ public ResponseEntity <PostResponse> getAllPost(
 
 ){
    PostResponse postResponse =this.postService.getAllPosts(pageNumber,pageSize,sortBy,sortDir);
-   return new ResponseEntity<PostResponse>(postResponse,HttpStatus.OK);}
+   return new ResponseEntity<PostResponse>(postResponse,HttpStatus.OK);
+}
+
+@GetMapping("/posts/search/{keywords}")
+public ResponseEntity<List<PostDto>> SearchPostByTitle(@PathVariable String keywords) {
+   List <PostDto> result = this.postService.searchPosts(keywords);
+   return new ResponseEntity<List<PostDto>>(result,HttpStatus.OK);
+}
+
+
+
  }
