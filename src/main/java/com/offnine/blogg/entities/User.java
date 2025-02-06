@@ -1,7 +1,5 @@
 package com.offnine.blogg.entities;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
