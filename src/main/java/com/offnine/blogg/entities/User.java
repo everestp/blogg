@@ -33,7 +33,7 @@ public class User  implements UserDetails {
     private  String email;
 
     @Column
-    @Size(min=3,max=10,message = "Password must be minimum 3 character")
+   
     private  String password;
 
     @Column

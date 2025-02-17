@@ -14,7 +14,7 @@ import com.offnine.blogg.Payload.UserDto;
 import com.offnine.blogg.Payload.ApiResponse;
 import com.offnine.blogg.Services.UserService;
 
-
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +36,7 @@ private UserService userService;
 
 @PostMapping("/")
 
-public ResponseEntity<UserDto> createUser( @RequestBody UserDto userDto ){
+public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto ){
     UserDto createUserDto = this.userService.createUser(userDto);
     return new ResponseEntity<>(createUserDto,HttpStatus.CREATED);
 

@@ -25,7 +25,7 @@ public class UserDto {
     private String email;
 
     @NotEmpty
-    @Size(min=4, max=10)
+    
     private String password;
 
     @NotNull

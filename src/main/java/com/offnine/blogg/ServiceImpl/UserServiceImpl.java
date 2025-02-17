@@ -7,6 +7,7 @@ import com.offnine.blogg.entities.User;
 import com.offnine.blogg.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,10 +22,14 @@ private ModelMapper modelMapper;
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     public UserDto createUser(UserDto userDto) {
-      User map = this.modelMapper.map(userDto, User.class);
-        User addedUser = this.userRepo.save(map);
+      User user = this.modelMapper.map(userDto, User.class);
+      user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        User addedUser = this.userRepo.save(user);
         return this.modelMapper.map(addedUser, UserDto.class);
     }
 

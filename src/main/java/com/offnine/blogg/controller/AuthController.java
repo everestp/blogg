@@ -12,14 +12,17 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+ 
 import com.offnine.blogg.Payload.JwtRequest;
 import com.offnine.blogg.Payload.JwtResponse;
+import com.offnine.blogg.Payload.UserDto;
 import com.offnine.blogg.Services.UserService;
 import com.offnine.blogg.security.JwtHelper;
+
+
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping
+@RequestMapping("/auth")
 public class AuthController {
     @Autowired
     private UserDetailsService userDetailsService;
@@ -37,7 +40,7 @@ public class AuthController {
     private JwtHelper helper;
     @Autowired
     private UserService userService;
-
+  
 
 
 
@@ -53,9 +56,19 @@ public class AuthController {
      String token = this.helper.generateToken(userDetails);
      JwtResponse response = JwtResponse.builder()
      .token(token).username(userDetails.getUsername()).build();
-     return new ResponseEntity<>(response,HttpStatus.OK);
+     return new ResponseEntity<JwtResponse>(response,HttpStatus.OK);
     
  }
+
+
+ @PostMapping("/create-user")
+ public ResponseEntity<UserDto> createUser( @RequestBody UserDto userDto ){
+    logger.info("Attempting to create User",userDto.getEmail());
+    UserDto createUserDto = this.userService.createUser(userDto);
+    logger.info(" User Created successfully",userDto.getEmail());
+    return new ResponseEntity<>(createUserDto,HttpStatus.CREATED);
+
+}
  private void doAuthenticate(String username, String password){
     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, password);
     try {
@@ -68,5 +81,7 @@ public class AuthController {
  public String exceptionHandler(){
     return "Crendetial Invalid !!";
  }
+
+
  
 }
